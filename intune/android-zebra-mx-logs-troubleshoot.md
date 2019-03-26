@@ -28,11 +28,11 @@ ms.custom: intune-azure
 ms.collection: M365-identity-device-management
 ---
 
-# Use StageNow logs to troubleshoot, and see potential issues on Android Zebra devices in Microsoft Intune
+# Troubleshoot and see potential issues on Android Zebra devices in Microsoft Intune
 
 [!INCLUDE [azure_portal](./includes/azure_portal.md)]
 
-In Microsoft Intune, you can use [**Zebra Mobility Extensions (MX)** to manage Android Zebra devices](android-zebra-mx-overview.md). When using Zebra devices, you create profiles in StageNow to manage settings, and upload them to Intune. Intune uses the StageNow app to apply the settings on the devices. The StageNow app also creates a detailed log file on the device that's used to troubleshoot.
+In Microsoft Intune, you can use [Zebra Mobility Extensions (MX) to manage Android Zebra devices](android-zebra-mx-overview.md). When using Zebra devices, you create profiles in StageNow to manage settings, and upload them to Intune. Intune uses the StageNow app to apply the settings on the devices. The StageNow app also creates a detailed log file on the device that's used to troubleshoot.
 
 This feature applies to:
 
@@ -40,13 +40,28 @@ This feature applies to:
 
 For example, you create a profile in StageNow to configure a device. When you create the StageNow profile, the last step generates a file for you test the profile. You consume this file with the StageNow app on the device.
 
-In another example, you create a profile in StageNow, and test it. In Intune, you add the StageNow profile, and then assign it to your Zebra devices. When checking the status of the assigned profile, the profile shows a high-level status. You want more details.
+In another example, you create a profile in StageNow, and test it. In Intune, you add the StageNow profile, and then assign it to your Zebra devices. When checking the status of the assigned profile, the profile shows a high-level status.
 
 In both these cases, you can get more details from the StageNow log file, which is saved on the device every time a StageNow profile applies.
 
-This article shows you how to read the StageNow logs, and lists some potential issues with Zebra devices.
+Some issues are not related to the contents of the StageNow profile, and won't be reflected in the logs.
+
+This article shows you how to read the StageNow logs, and lists some other potential issues with Zebra devices that may not be reflected in the logs.
 
 [Use and manage Zebra devices with Zebra Mobility Extensions](android-zebra-mx-overview.md) has more information on this feature.
+
+## Get the logs
+
+### Use the StageNow app on the device
+When you test a profile directly using StageNow on your computer in  (as opposed to using Intune to distribute the profile)(see Step 4 of the overview doc), the StageNow app on the device saves the logs from testing the profile. You can get the log file via the More (...) menu in the StageNow app on the device.
+
+### Get logs with Android Debug Bridge
+If you need to obtain logs after the profile is already deployed with Intune, you can manually retrieve the logs by connecting the device to a computer with the Android Debug Bridge (adb) set up. For more details on setting up adb, refer to [Google’s documentation](https://developer.android.com/studio/command-line/adb).
+
+On the device, logs are saved in `/sdcard/Android/data/com.microsoft.windowsintune.companyportal/files`
+
+### Get logs with email
+If you need to obtain logs after the profile is already deployed with Intune, you can get logs via email. If the Company Portal app is running on a Zebra device with an email client installed, use [Send Logs](https://docs.microsoft.com/en-us/intune-user-help/send-logs-to-your-it-admin-by-email-android) to attach the latest StageNow log to an email to your company support email address. Using the Send Logs feature also creates a PowerLift incident ID, which you can reference when contacting Microsoft support.
 
 ## Read the logs
 
@@ -116,9 +131,9 @@ The log shows an error, as it contains a `<characteristic-error>` tag. In this s
 </wap-provisioningdoc>
 ```
 
-## Potential issues with Zebra devices
+## Other potential issues with Zebra devices
 
-This section lists possible issues you may run into when using Zebra devices with Device Administrator.
+This section lists other possible issues you may run into when using Zebra devices with Device Administrator. These issues aren't reported in the StageNow logs.
 
 ### Android System WebView is out of date
 
